@@ -3,7 +3,7 @@ name: Publicar actualización
 on:
   push:
     paths:
-      - "artifacts/ACTUALIZACION_FABRICA_0.10.zip.b64"
+      - "artifacts/ACTUALIZACION_FABRICA_0.11.zip.b64"
       - ".github/workflows/publicar-actualizacion.yml"
   workflow_dispatch:
 
@@ -15,36 +15,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Reconstruir y verificar el paquete
         shell: bash
         run: |
-          base64 --decode artifacts/ACTUALIZACION_FABRICA_0.10.zip.b64 > ACTUALIZACION_FABRICA_0.10.zip
-          echo "63bb34d2ae74e178f675deacb06b4c338e3c08112cb4cb5afc40e20e8ad916dd  ACTUALIZACION_FABRICA_0.10.zip" | sha256sum --check
-
+          base64 --decode artifacts/ACTUALIZACION_FABRICA_0.11.zip.b64 > ACTUALIZACION_FABRICA_0.11.zip
+          echo "1028a16e2da5d6d2f6470cd6a88b86a19a1548e7fdbd256fecb88f0aa6825d45  ACTUALIZACION_FABRICA_0.11.zip" | sha256sum --check
       - name: Publicar la versión
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          if ! gh release view v0.10.0 >/dev/null 2>&1; then
-            gh release create v0.10.0 --title "Fábrica de Traducción 0.10" --notes "Primera versión con actualizaciones automáticas verificadas."
+          if ! gh release view v0.11.0 >/dev/null 2>&1; then
+            gh release create v0.11.0 --title "Fábrica de Traducción 0.11" --notes "Traducción completa reanudable de todas las unidades ordinarias pendientes."
           fi
-          gh release upload v0.10.0 ACTUALIZACION_FABRICA_0.10.zip --clobber
-
+          gh release upload v0.11.0 ACTUALIZACION_FABRICA_0.11.zip --clobber
       - name: Publicar aviso para la aplicación
         shell: bash
         run: |
           cat > latest.json <<'JSON'
           {
-            "version": "0.10.0",
-            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.10.0/ACTUALIZACION_FABRICA_0.10.zip",
-            "sha256": "63bb34d2ae74e178f675deacb06b4c338e3c08112cb4cb5afc40e20e8ad916dd",
-            "notes": "Actualizaciones automáticas seguras y verificadas."
+            "version": "0.11.0",
+            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.11.0/ACTUALIZACION_FABRICA_0.11.zip",
+            "sha256": "1028a16e2da5d6d2f6470cd6a88b86a19a1548e7fdbd256fecb88f0aa6825d45",
+            "notes": "Traduce todas las unidades ordinarias pendientes con pausa y reanudación seguras."
           }
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
-          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.10"
+          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.11"
           git push

@@ -1,6 +1,6 @@
 {
-  "version": "0.10.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.10.0/ACTUALIZACION_FABRICA_0.10.zip",
-  "sha256": "63bb34d2ae74e178f675deacb06b4c338e3c08112cb4cb5afc40e20e8ad916dd",
-  "notes": "Actualizaciones automáticas seguras y verificadas."
+  "version": "0.11.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.11.0/ACTUALIZACION_FABRICA_0.11.zip",
+  "sha256": "1028a16e2da5d6d2f6470cd6a88b86a19a1548e7fdbd256fecb88f0aa6825d45",
+  "notes": "Traduce todas las unidades ordinarias pendientes con pausa y reanudación seguras."
 }

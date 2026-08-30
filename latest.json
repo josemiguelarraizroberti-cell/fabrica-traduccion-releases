@@ -1,6 +1,6 @@
 {
-  "version": "0.17.1",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.17.1/ACTUALIZACION_FABRICA_0.17.1.zip",
-  "sha256": "5643faae87dcac48db8ee66f57a351d26084a0a05e187ec75ba4fb762aed70e8",
-  "notes": "Corrige la ventana de revisión para mantener visibles Aceptar, Rechazar y Aplicar aceptadas."
+  "version": "0.18.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.18.0/ACTUALIZACION_FABRICA_0.18.0.zip",
+  "sha256": "b5a8b7de214d17876edfb0fb750304b495378c99927e99f31eef345abd4164f6",
+  "notes": "Añade un catálogo descargable con Douay-Rheims, King James, Reina-Valera 1909, Crampon 1923 y Almeida 1911; identifica tradición y canon y conserva los textos en el disco local."
 }

@@ -2,7 +2,7 @@ name: Publicar actualización
 on:
   push:
     paths:
-      - "artifacts/ACTUALIZACION_FABRICA_0.17.1.zip.b64.part*"
+      - "artifacts/v0.18.0/**"
       - ".github/workflows/publicar-actualizacion.yml"
   workflow_dispatch:
 permissions:
@@ -12,33 +12,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reconstruir y verificar el paquete
+      - name: Reconstruir y verificar los paquetes
         shell: bash
         run: |
-          cat artifacts/ACTUALIZACION_FABRICA_0.17.1.zip.b64.part* | base64 --decode > ACTUALIZACION_FABRICA_0.17.1.zip
-          echo "5643faae87dcac48db8ee66f57a351d26084a0a05e187ec75ba4fb762aed70e8  ACTUALIZACION_FABRICA_0.17.1.zip" | sha256sum --check
-      - name: Publicar la versión
+          cat artifacts/v0.18.0/ACTUALIZACION_FABRICA_0.18.0.zip.b64.part* | base64 --decode > ACTUALIZACION_FABRICA_0.18.0.zip
+          cat artifacts/v0.18.0/FreCrampon1923_usfm.zip.b64.part* | base64 --decode > FreCrampon1923_usfm.zip
+          cat artifacts/v0.18.0/PorAlmeida1911_usfm.zip.b64.part* | base64 --decode > PorAlmeida1911_usfm.zip
+          curl --location --fail --retry 3 --output eng-kjv_usfm.zip https://ebible.org/Scriptures/eng-kjv_usfm.zip
+          curl --location --fail --retry 3 --output spaRV1909_usfm.zip https://ebible.org/Scriptures/spaRV1909_usfm.zip
+          echo "b5a8b7de214d17876edfb0fb750304b495378c99927e99f31eef345abd4164f6  ACTUALIZACION_FABRICA_0.18.0.zip" | sha256sum --check
+          echo "802f7a67a4b19716eab81dd2cbcb5d4f9c4bb98c076182140bb49f945d4330ea  FreCrampon1923_usfm.zip" | sha256sum --check
+          echo "16f7e01caa4bccb51dc69a0a7d2c46d805bb1f660aa37bb0222a0fd6b1fee844  PorAlmeida1911_usfm.zip" | sha256sum --check
+          echo "1165788907a8bbe93c3299d89eb5134d942038e5dca2c0832beb13e8f72441d0  eng-kjv_usfm.zip" | sha256sum --check
+          echo "b5bfac87199a561fcbacb5e32be5d8d280934b1c6830088d9eb8c68ffbfbe711  spaRV1909_usfm.zip" | sha256sum --check
+      - name: Publicar la versión y las Biblias
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          if ! gh release view v0.17.1 >/dev/null 2>&1; then
-            gh release create v0.17.1 --title "Fábrica de Traducción 0.17.1" --notes "Mantiene visibles los botones de decisión con el escalado alto de Windows."
+          if ! gh release view v0.18.0 >/dev/null 2>&1; then
+            gh release create v0.18.0 --title "Fábrica de Traducción 0.18" --notes "Añade un catálogo bíblico multilingüe verificable, descargas bajo demanda y advertencias de tradición y canon."
           fi
-          gh release upload v0.17.1 ACTUALIZACION_FABRICA_0.17.1.zip --clobber
+          gh release upload v0.18.0 ACTUALIZACION_FABRICA_0.18.0.zip FreCrampon1923_usfm.zip PorAlmeida1911_usfm.zip eng-kjv_usfm.zip spaRV1909_usfm.zip --clobber
       - name: Publicar aviso para la aplicación
         shell: bash
         run: |
           cat > latest.json <<'JSON'
           {
-            "version": "0.17.1",
-            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.17.1/ACTUALIZACION_FABRICA_0.17.1.zip",
-            "sha256": "5643faae87dcac48db8ee66f57a351d26084a0a05e187ec75ba4fb762aed70e8",
-            "notes": "Corrige la ventana de revisión para mantener visibles Aceptar, Rechazar y Aplicar aceptadas."
+            "version": "0.18.0",
+            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.18.0/ACTUALIZACION_FABRICA_0.18.0.zip",
+            "sha256": "b5a8b7de214d17876edfb0fb750304b495378c99927e99f31eef345abd4164f6",
+            "notes": "Añade un catálogo descargable con Douay-Rheims, King James, Reina-Valera 1909, Crampon 1923 y Almeida 1911; identifica tradición y canon y conserva los textos en el disco local."
           }
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
-          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.17.1"
+          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.18.0"
           git push

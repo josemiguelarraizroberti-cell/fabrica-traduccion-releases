@@ -2,7 +2,7 @@ name: Publicar actualización
 on:
   push:
     paths:
-      - "artifacts/ACTUALIZACION_FABRICA_0.17.zip.b64.part*"
+      - "artifacts/ACTUALIZACION_FABRICA_0.17.1.zip.b64.part*"
       - ".github/workflows/publicar-actualizacion.yml"
   workflow_dispatch:
 permissions:
@@ -15,30 +15,30 @@ jobs:
       - name: Reconstruir y verificar el paquete
         shell: bash
         run: |
-          cat artifacts/ACTUALIZACION_FABRICA_0.17.zip.b64.part* | base64 --decode > ACTUALIZACION_FABRICA_0.17.zip
-          echo "2b86c99d7edfa4584e5ede149a560d432990a41e0b0b20b4d5bd5f246b667ac1  ACTUALIZACION_FABRICA_0.17.zip" | sha256sum --check
+          cat artifacts/ACTUALIZACION_FABRICA_0.17.1.zip.b64.part* | base64 --decode > ACTUALIZACION_FABRICA_0.17.1.zip
+          echo "5643faae87dcac48db8ee66f57a351d26084a0a05e187ec75ba4fb762aed70e8  ACTUALIZACION_FABRICA_0.17.1.zip" | sha256sum --check
       - name: Publicar la versión
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          if ! gh release view v0.17.0 >/dev/null 2>&1; then
-            gh release create v0.17.0 --title "Fábrica de Traducción 0.17" --notes "Añade decisiones humanas por incidencia, correcciones localizadas y segunda verificación independiente."
+          if ! gh release view v0.17.1 >/dev/null 2>&1; then
+            gh release create v0.17.1 --title "Fábrica de Traducción 0.17.1" --notes "Mantiene visibles los botones de decisión con el escalado alto de Windows."
           fi
-          gh release upload v0.17.0 ACTUALIZACION_FABRICA_0.17.zip --clobber
+          gh release upload v0.17.1 ACTUALIZACION_FABRICA_0.17.1.zip --clobber
       - name: Publicar aviso para la aplicación
         shell: bash
         run: |
           cat > latest.json <<'JSON'
           {
-            "version": "0.17.0",
-            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.17.0/ACTUALIZACION_FABRICA_0.17.zip",
-            "sha256": "2b86c99d7edfa4584e5ede149a560d432990a41e0b0b20b4d5bd5f246b667ac1",
-            "notes": "Permite aceptar o rechazar incidencias, aplica sólo las aceptadas y verifica cada corrección antes de exportar el DOCX final."
+            "version": "0.17.1",
+            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.17.1/ACTUALIZACION_FABRICA_0.17.1.zip",
+            "sha256": "5643faae87dcac48db8ee66f57a351d26084a0a05e187ec75ba4fb762aed70e8",
+            "notes": "Corrige la ventana de revisión para mantener visibles Aceptar, Rechazar y Aplicar aceptadas."
           }
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
-          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.17"
+          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.17.1"
           git push

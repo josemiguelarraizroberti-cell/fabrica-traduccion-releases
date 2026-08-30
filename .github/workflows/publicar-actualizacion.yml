@@ -2,7 +2,7 @@ name: Publicar actualización
 on:
   push:
     paths:
-      - "artifacts/ACTUALIZACION_FABRICA_0.14.zip.b64"
+      - "artifacts/ACTUALIZACION_FABRICA_0.15.zip.b64"
       - ".github/workflows/publicar-actualizacion.yml"
   workflow_dispatch:
 permissions:
@@ -15,30 +15,30 @@ jobs:
       - name: Reconstruir y verificar el paquete
         shell: bash
         run: |
-          base64 --decode artifacts/ACTUALIZACION_FABRICA_0.14.zip.b64 > ACTUALIZACION_FABRICA_0.14.zip
-          echo "950a0822c113fb8671ba8b1c4c108cbf9bbdbd69e43908ae03f1b7a1680c64ec  ACTUALIZACION_FABRICA_0.14.zip" | sha256sum --check
+          base64 --decode artifacts/ACTUALIZACION_FABRICA_0.15.zip.b64 > ACTUALIZACION_FABRICA_0.15.zip
+          echo "51f35c9fbefde328743116aebdc0ba202d858f7a3a8bb3b41f77496ebec79cb0  ACTUALIZACION_FABRICA_0.15.zip" | sha256sum --check
       - name: Publicar la versión
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          if ! gh release view v0.14.0 >/dev/null 2>&1; then
-            gh release create v0.14.0 --title "Fábrica de Traducción 0.14" --notes "Reconstrucción y reparación segura de citas bíblicas multipárrafo."
+          if ! gh release view v0.15.0 >/dev/null 2>&1; then
+            gh release create v0.15.0 --title "Fábrica de Traducción 0.15" --notes "Reparación completa de estados multipárrafo y ejecución silenciosa de Codex."
           fi
-          gh release upload v0.14.0 ACTUALIZACION_FABRICA_0.14.zip --clobber
+          gh release upload v0.15.0 ACTUALIZACION_FABRICA_0.15.zip --clobber
       - name: Publicar aviso para la aplicación
         shell: bash
         run: |
           cat > latest.json <<'JSON'
           {
-            "version": "0.14.0",
-            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.14.0/ACTUALIZACION_FABRICA_0.14.zip",
-            "sha256": "950a0822c113fb8671ba8b1c4c108cbf9bbdbd69e43908ae03f1b7a1680c64ec",
-            "notes": "Reconstruye citas bíblicas multipárrafo, repara conformaciones parciales y verifica que el texto oficial no tenga omisiones ni repeticiones."
+            "version": "0.15.0",
+            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.15.0/ACTUALIZACION_FABRICA_0.15.zip",
+            "sha256": "51f35c9fbefde328743116aebdc0ba202d858f7a3a8bb3b41f77496ebec79cb0",
+            "notes": "Completa la reparación de citas multipárrafo parcialmente conformadas y oculta las ventanas de consola de Codex."
           }
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
-          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.14"
+          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.15"
           git push

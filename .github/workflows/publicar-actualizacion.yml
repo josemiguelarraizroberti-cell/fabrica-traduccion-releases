@@ -1,9 +1,8 @@
 name: Publicar actualización
-
 on:
   push:
     paths:
-      - "artifacts/ACTUALIZACION_FABRICA_0.12.zip.b64"
+      - "artifacts/ACTUALIZACION_FABRICA_0.13.zip.b64"
       - ".github/workflows/publicar-actualizacion.yml"
   workflow_dispatch:
 permissions:
@@ -16,30 +15,30 @@ jobs:
       - name: Reconstruir y verificar el paquete
         shell: bash
         run: |
-          base64 --decode artifacts/ACTUALIZACION_FABRICA_0.12.zip.b64 > ACTUALIZACION_FABRICA_0.12.zip
-          echo "3314da325005acba08d8808a6bd3e4840c4447ef1c3bfc3aa7f87f4c29cc3884  ACTUALIZACION_FABRICA_0.12.zip" | sha256sum --check
+          base64 --decode artifacts/ACTUALIZACION_FABRICA_0.13.zip.b64 > ACTUALIZACION_FABRICA_0.13.zip
+          echo "b96608135574b9fda8dd4bf06f6da745b07f773837d979e28f9d5c571628a9d8  ACTUALIZACION_FABRICA_0.13.zip" | sha256sum --check
       - name: Publicar la versión
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          if ! gh release view v0.12.0 >/dev/null 2>&1; then
-            gh release create v0.12.0 --title "Fábrica de Traducción 0.12" --notes "Conformación bíblica automática, pausable y protegida contra excepciones doctrinales."
+          if ! gh release view v0.13.0 >/dev/null 2>&1; then
+            gh release create v0.13.0 --title "Fábrica de Traducción 0.13" --notes "Resolución auditable de excepciones bíblicas mediante traducción fiel desde el texto original."
           fi
-          gh release upload v0.12.0 ACTUALIZACION_FABRICA_0.12.zip --clobber
+          gh release upload v0.13.0 ACTUALIZACION_FABRICA_0.13.zip --clobber
       - name: Publicar aviso para la aplicación
         shell: bash
         run: |
           cat > latest.json <<'JSON'
           {
-            "version": "0.12.0",
-            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.12.0/ACTUALIZACION_FABRICA_0.12.zip",
-            "sha256": "3314da325005acba08d8808a6bd3e4840c4447ef1c3bfc3aa7f87f4c29cc3884",
-            "notes": "Conforma todas las citas bíblicas en orden, guarda cada una y se detiene ante referencias ambiguas o posibles excepciones doctrinales."
+            "version": "0.13.0",
+            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.13.0/ACTUALIZACION_FABRICA_0.13.zip",
+            "sha256": "b96608135574b9fda8dd4bf06f6da745b07f773837d979e28f9d5c571628a9d8",
+            "notes": "Cuando la Biblia oficial elimina un término necesario para el argumento, traduce fielmente la cita desde el original y registra la excepción."
           }
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
-          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.12"
+          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.13"
           git push

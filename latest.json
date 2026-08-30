@@ -1,6 +1,6 @@
 {
-  "version": "0.16.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.16.0/ACTUALIZACION_FABRICA_0.16.zip",
-  "sha256": "dd77e4780861251da54222ebf0e8eeb8038f3824b73cd898c5af60e41a9cd9d7",
-  "notes": "Añade revisión independiente por capítulo, informe de incidencias y log separado de hallazgos del manuscrito original."
+  "version": "0.17.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.17.0/ACTUALIZACION_FABRICA_0.17.zip",
+  "sha256": "2b86c99d7edfa4584e5ede149a560d432990a41e0b0b20b4d5bd5f246b667ac1",
+  "notes": "Permite aceptar o rechazar incidencias, aplica sólo las aceptadas y verifica cada corrección antes de exportar el DOCX final."
 }

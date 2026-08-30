@@ -1,6 +1,6 @@
 {
-  "version": "0.15.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.15.0/ACTUALIZACION_FABRICA_0.15.zip",
-  "sha256": "51f35c9fbefde328743116aebdc0ba202d858f7a3a8bb3b41f77496ebec79cb0",
-  "notes": "Completa la reparación de citas multipárrafo parcialmente conformadas y oculta las ventanas de consola de Codex."
+  "version": "0.16.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.16.0/ACTUALIZACION_FABRICA_0.16.zip",
+  "sha256": "dd77e4780861251da54222ebf0e8eeb8038f3824b73cd898c5af60e41a9cd9d7",
+  "notes": "Añade revisión independiente por capítulo, informe de incidencias y log separado de hallazgos del manuscrito original."
 }

@@ -1,6 +1,6 @@
 {
-  "version": "0.13.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.13.0/ACTUALIZACION_FABRICA_0.13.zip",
-  "sha256": "b96608135574b9fda8dd4bf06f6da745b07f773837d979e28f9d5c571628a9d8",
-  "notes": "Cuando la Biblia oficial elimina un término necesario para el argumento, traduce fielmente la cita desde el original y registra la excepción."
+  "version": "0.14.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.14.0/ACTUALIZACION_FABRICA_0.14.zip",
+  "sha256": "950a0822c113fb8671ba8b1c4c108cbf9bbdbd69e43908ae03f1b7a1680c64ec",
+  "notes": "Reconstruye citas bíblicas multipárrafo, repara conformaciones parciales y verifica que el texto oficial no tenga omisiones ni repeticiones."
 }

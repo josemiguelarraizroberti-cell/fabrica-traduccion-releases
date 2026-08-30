@@ -1,6 +1,6 @@
 {
-  "version": "0.11.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.11.0/ACTUALIZACION_FABRICA_0.11.zip",
-  "sha256": "1028a16e2da5d6d2f6470cd6a88b86a19a1548e7fdbd256fecb88f0aa6825d45",
-  "notes": "Traduce todas las unidades ordinarias pendientes con pausa y reanudación seguras."
+  "version": "0.12.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.12.0/ACTUALIZACION_FABRICA_0.12.zip",
+  "sha256": "3314da325005acba08d8808a6bd3e4840c4447ef1c3bfc3aa7f87f4c29cc3884",
+  "notes": "Conforma todas las citas bíblicas en orden, guarda cada una y se detiene ante referencias ambiguas o posibles excepciones doctrinales."
 }

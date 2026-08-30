@@ -1,6 +1,6 @@
 {
-  "version": "0.14.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.14.0/ACTUALIZACION_FABRICA_0.14.zip",
-  "sha256": "950a0822c113fb8671ba8b1c4c108cbf9bbdbd69e43908ae03f1b7a1680c64ec",
-  "notes": "Reconstruye citas bíblicas multipárrafo, repara conformaciones parciales y verifica que el texto oficial no tenga omisiones ni repeticiones."
+  "version": "0.15.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.15.0/ACTUALIZACION_FABRICA_0.15.zip",
+  "sha256": "51f35c9fbefde328743116aebdc0ba202d858f7a3a8bb3b41f77496ebec79cb0",
+  "notes": "Completa la reparación de citas multipárrafo parcialmente conformadas y oculta las ventanas de consola de Codex."
 }

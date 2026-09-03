@@ -3,7 +3,7 @@ name: Publicar actualización
 on:
   push:
     paths:
-      - "artifacts/v0.19.0/READY"
+      - "artifacts/v0.20.0/READY"
   workflow_dispatch:
 
 permissions:
@@ -12,48 +12,49 @@ permissions:
 jobs:
   publicar:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
       - name: Reconstruir y verificar el paquete
         shell: bash
         run: |
-          cat artifacts/v0.19.0/ACTUALIZACION_FABRICA_0.19.0.zip.b64.part* | base64 --decode > ACTUALIZACION_FABRICA_0.19.0.zip
-          echo "e7f3df05ad01153424a7f25b5a400e32cb7fb92e164869f9276e001819f648d4  ACTUALIZACION_FABRICA_0.19.0.zip" | sha256sum --check
-          unzip -t ACTUALIZACION_FABRICA_0.19.0.zip
+          cat artifacts/v0.20.0/ACTUALIZACION_FABRICA_0.20.0.zip.b64.part* | base64 --decode > ACTUALIZACION_FABRICA_0.20.0.zip
+          echo "da897658cb95f1b9e701a670854d00e4d0cc103da82e78c8809e899f4ae362cc  ACTUALIZACION_FABRICA_0.20.0.zip" | sha256sum --check
+          unzip -t ACTUALIZACION_FABRICA_0.20.0.zip
       - name: Publicar la versión
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          if ! gh release view v0.19.0 >/dev/null 2>&1; then
-            gh release create v0.19.0 --title "Fábrica de Traducción 0.19" --notes "Añade gestión real por capítulos, progreso y procesamiento independiente, depura el catálogo para mostrar sólo Biblias verificadas y corrige el cierre de SQLite en Windows."
+          if ! gh release view v0.20.0 >/dev/null 2>&1; then
+            gh release create v0.20.0 --title "Fábrica de Traducción 0.20" --notes "Incorpora el procesamiento autónomo de libros completos por capítulos, con progreso persistente, pausa y reanudación, reintentos, cuarentena de fallos, conformado bíblico, revisión acumulada y bloqueo de incidencias críticas."
           fi
-          gh release upload v0.19.0 ACTUALIZACION_FABRICA_0.19.0.zip --clobber
+          gh release upload v0.20.0 ACTUALIZACION_FABRICA_0.20.0.zip --clobber
       - name: Publicar aviso para la aplicación
         shell: bash
         run: |
           cat > latest.json <<'JSON'
           {
-            "version": "0.19.0",
-            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.19.0/ACTUALIZACION_FABRICA_0.19.0.zip",
-            "sha256": "e7f3df05ad01153424a7f25b5a400e32cb7fb92e164869f9276e001819f648d4",
-            "notes": "Añade gestión real por capítulos y progreso independiente; el catálogo muestra sólo Biblias verificadas e instalables; corrige bloqueos de SQLite en Windows."
+            "version": "0.20.0",
+            "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.20.0/ACTUALIZACION_FABRICA_0.20.0.zip",
+            "sha256": "da897658cb95f1b9e701a670854d00e4d0cc103da82e78c8809e899f4ae362cc",
+            "notes": "Procesa libros completos de forma autónoma por capítulos; conserva el avance; permite pausar y reanudar; reintenta fallos; pone capítulos problemáticos en cuarentena; acumula revisiones y detiene incidencias críticas."
           }
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
-          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.19.0"
+          git diff --cached --quiet || git commit -m "Publicar manifiesto de la versión 0.20.0"
           git push
       - name: Verificar descarga y manifiesto públicos
         shell: bash
         run: |
-          curl --location --fail --retry 3 --output descarga-publicada.zip https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.19.0/ACTUALIZACION_FABRICA_0.19.0.zip
-          echo "e7f3df05ad01153424a7f25b5a400e32cb7fb92e164869f9276e001819f648d4  descarga-publicada.zip" | sha256sum --check
+          curl --location --fail --retry 3 --output descarga-publicada.zip https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.20.0/ACTUALIZACION_FABRICA_0.20.0.zip
+          echo "da897658cb95f1b9e701a670854d00e4d0cc103da82e78c8809e899f4ae362cc  descarga-publicada.zip" | sha256sum --check
           python - <<'PY'
           import json
           from pathlib import Path
           manifest = json.loads(Path("latest.json").read_text(encoding="utf-8"))
-          assert manifest["version"] == "0.19.0"
-          assert manifest["sha256"] == "e7f3df05ad01153424a7f25b5a400e32cb7fb92e164869f9276e001819f648d4"
+          assert manifest["version"] == "0.20.0"
+          assert manifest["sha256"] == "da897658cb95f1b9e701a670854d00e4d0cc103da82e78c8809e899f4ae362cc"
           PY

@@ -1,6 +1,6 @@
 {
-  "version": "0.19.0",
-  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.19.0/ACTUALIZACION_FABRICA_0.19.0.zip",
-  "sha256": "e7f3df05ad01153424a7f25b5a400e32cb7fb92e164869f9276e001819f648d4",
-  "notes": "Añade gestión real por capítulos y progreso independiente; el catálogo muestra sólo Biblias verificadas e instalables; corrige bloqueos de SQLite en Windows."
+  "version": "0.20.0",
+  "download_url": "https://github.com/josemiguelarraizroberti-cell/fabrica-traduccion-releases/releases/download/v0.20.0/ACTUALIZACION_FABRICA_0.20.0.zip",
+  "sha256": "da897658cb95f1b9e701a670854d00e4d0cc103da82e78c8809e899f4ae362cc",
+  "notes": "Procesa libros completos de forma autónoma por capítulos; conserva el avance; permite pausar y reanudar; reintenta fallos; pone capítulos problemáticos en cuarentena; acumula revisiones y detiene incidencias críticas."
 }
